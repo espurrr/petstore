@@ -13,10 +13,10 @@ public class PetData {
     private PetData() {
         this.addPet(new Pet(1, 3, "Joey", "Cat"));
         this.addPet(new Pet(2, 2, "Pinky", "Dog"));
-        this.addPet(new Pet(2, 2, "Rocky", "Dog"));
-        this.addPet(new Pet(3, 1, "Peththappu", "Parrot"));
-        this.addPet(new Pet(4, 1, "Flash", "Tortoise"));
-        this.addPet(new Pet(5, 1, "Puncha", "Rabbit"));
+        this.addPet(new Pet(3, 2, "Rocky", "Dog"));
+        this.addPet(new Pet(4, 1, "Peththappu", "Parrot"));
+        this.addPet(new Pet(5, 1, "Flash", "Tortoise"));
+        this.addPet(new Pet(6, 1, "Puncha", "Rabbit"));
     }
 
     public static PetData getPetData() {     // check thissssssssssssssssssssssssss
@@ -56,6 +56,20 @@ public class PetData {
             }
         }
         return false;
+    }
+
+//    SEARCH BY ID
+    public List<Pet> getPetById(Integer pId) {
+        List<Pet> searchList = new ArrayList<Pet>();
+        for (Pet p : petList) {
+            if (p.getPetId().equals(pId)) {
+                searchList.add(p);
+            }
+        }
+        if(!searchList.isEmpty()){
+            return searchList;
+        }
+        return null;
     }
 
 //  SEARCH BY NAME

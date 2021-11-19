@@ -27,8 +27,8 @@ public class PetResource {
 			@APIResponse(responseCode = "200", description = "All Pets", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(ref = "Pet"))) })
 	@GET
 	public Response getPets() {
-		List<Pet> petTypes = petList.getAllPets();
-		return Response.ok(petTypes).build();
+		List<Pet> pets = petList.getAllPets();
+		return Response.ok(pets).build();
 	}
 
 //	CREATE NEW PET
@@ -38,7 +38,7 @@ public class PetResource {
 	@POST
 	@Path("add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addPetType(Pet newPet) {
+	public Response addPet(Pet newPet) {
 		Pet newestPet = petList.addPet(newPet);
 		return Response.ok(newestPet).build();
 	}
@@ -50,7 +50,7 @@ public class PetResource {
 	@PUT
 	@Path("update/{pId}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response updatePetType(@PathParam("pId") Integer pId, Pet putPet) {
+	public Response updatePet(@PathParam("pId") Integer pId, Pet putPet) {
 		Pet editedPet = petList.updatePet(pId, putPet);
 		return Response.ok(editedPet).build();
 	}
@@ -62,9 +62,24 @@ public class PetResource {
 	@DELETE
 	@Path("delete/{pId}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response deletePetType(@PathParam("pId") Integer pId) {
+	public Response deletePet(@PathParam("pId") Integer pId) {
 		boolean result = petList.deletePet(pId);
-		return Response.ok(result).build();
+		if (result) return Response.ok(true).build();
+		else return Response.status(Status.NOT_FOUND).build();
+	}
+
+//	SEARCH BY ID
+	@APIResponses(value = {
+			@APIResponse(responseCode = "200", description = "Pet found successfully", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(ref = "Pet"))),
+			@APIResponse(responseCode = "404", description = "Failed to find any pet by the id.") })
+	@GET
+	@Path("{pId}")
+	public Response getPetById(@PathParam("pId") Integer pId) {
+		List<Pet> pets = petList.getPetById(pId);
+		if(pets == null){
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		return Response.ok(pets).build();
 	}
 
 //	SEARCH BY PET NAME
@@ -80,6 +95,7 @@ public class PetResource {
 		}
 		return Response.ok(pets).build();
 	}
+
 
 //	SEARCH BY AGE
 	@APIResponses(value = {
