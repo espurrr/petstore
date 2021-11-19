@@ -1,2 +1,4 @@
 org/acme/PetResourceTest.java
  org.acme.PetResourceTest
+org/acme/PetTypeResourceTest.java
+ org.acme.PetTypeResourceTest
