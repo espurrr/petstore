@@ -119,3 +119,55 @@ Open [http://localhost:16686/](http://localhost:16686/) to see the traces. Mind 
 ## Deploying Application
 
 To deploy the demo app on a docker-compose please visit [./deploy](https://github.com/rasika/petstore/tree/master/deploy)
+
+## Test the Application
+
+### By running the Test Suite 
+
+Here we use the JUnit Test Suite to execute our tests. If you want to manually test the application execute the following command:
+
+    ./gradlew test
+    
+### By running cURL 
+
+#### Resource : Pet Type
+
+Get all pet types 
+
+    curl http://localhost:8080/v1/petTypes/ -H "Accept: application/json" 
+    
+Add new pet types 
+
+    curl -X POST http://localhost:8080/v1/petTypes/add -H 'Content-Type: application/json' -d '{"petTypeId": 6, "petTypeName": "Butterfly"},'
+
+Update pet type 
+
+    curl -X PUT http://localhost:8080/v1/petTypes/update/3 -H 'Content-Type: application/json' -d '{"petTypeId": 3, "petTypeName": "Guinea Pig"},'
+
+Delete pet type 
+
+    curl -X DELETE http://localhost:8080/v1/petTypes/delete/3 
+    
+#### Resource : Pet 
+
+Get all pets 
+
+    curl http://localhost:8080/v1/pets/ -H "Accept: application/json" 
+    
+Add new pet 
+
+    curl -X POST http://localhost:8080/v1/pets/add -H 'Content-Type: application/json' -d '{"petId": 7, "petAge": 1,"petName": "Katuchuty","petType": "Lizard"}'
+
+Update pet
+
+    curl -X PUT http://localhost:8080/v1/pets/update/3 -H 'Content-Type: application/json' -d '{"petId": 3, "petAge": 134,"petName": "Bolt","petType": "Tortoise"}'
+
+Delete pet 
+
+    curl -X DELETE http://localhost:8080/v1/pets/delete/3 
+   
+   
+
+
+
+
